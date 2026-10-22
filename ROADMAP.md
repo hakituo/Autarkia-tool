@@ -22,8 +22,51 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 | # | 库 | 状态 |
 | --- | --- | --- |
 | 0 | [Autarkia](https://pypi.org/project/Autarkia/)（工具治理层） | **已发布 0.1.2** |
-| 1 | Autarkia-Cadence | 进行中 |
-| 2-9 | 见下表 | 排队 |
+| 1 | Autarkia-Cadence | 代码完成，199 项测试全绿，待发布 |
+| 2 | Autarkia-Vocab | 代码完成，161 项测试全绿，待发布 |
+| 3 | Autarkia-Textkit | 代码完成，86 项测试全绿，待发布 |
+| 4 | Autarkia-Io | 代码完成，60 项测试全绿，待发布 |
+| 5 | Autarkia-Concurrency | 代码完成，50 项测试全绿，待发布 |
+| 6 | Autarkia-Emotion | 代码完成，94 项测试全绿，待发布 |
+| 7 | Autarkia-Msgqueue | 代码完成，75 项测试全绿，待发布 |
+| 8 | Autarkia-Personas | 代码完成，112 项测试全绿，待发布 |
+| 9 | Autarkia-LLM | 未开工 |
+| 10 | Autarkia-Scheduler | 未开工 |
+
+## 当前进度与交接（2026-10-22）
+
+前 8 个库已在本地各自建好独立仓库骨架（`pyproject.toml` / LICENSE / `.gitignore` / README / AGENTS.md / `py.typed` / tests），**尚未 git commit、push 或 PyPI 发布**；版本号均为 `0.1.0`，`build` + `twine check` 均已通过。
+
+| 库 | 本地目录 | 测试 |
+| --- | --- | --- |
+| Autarkia-Cadence | `D:\AI\Autarkia-Cadence` | 199 |
+| Autarkia-Vocab | `D:\AI\Autarkia-Vocab` | 161 |
+| Autarkia-Textkit | `D:\AI\Autarkia-Textkit` | 86 |
+| Autarkia-Io | `D:\AI\Autarkia-Io` | 60 |
+| Autarkia-Concurrency | `D:\AI\Autarkia-Concurrency` | 50 |
+| Autarkia-Emotion | `D:\AI\Autarkia-Emotion` | 94 |
+| Autarkia-Msgqueue | `D:\AI\Autarkia-Msgqueue` | 75 |
+| Autarkia-Personas | `D:\AI\Autarkia-Personas` | 112 |
+
+验证方式（以 Cadence 为例，其余替换目录名即可）：
+
+```powershell
+$env:PYTHONPATH="D:\AI\Autarkia-Cadence\src"
+D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
+```
+
+环境与约定：
+
+- 共用 venv：`D:\AI\autarkia\.venv`（Python 3.10），已安装 `fsrs==6.3.2`（Vocab 需要）。
+- 8 个库均无宿主 import（`config.*` / `core.*` / `clients.*`），测试不跑 LLM、不跑网络。
+- 每个库的 `AGENTS.md` 记录了源头文件对照、通用化改造与命令；续作前先读对应库的 AGENTS.md。
+- 本轮仍**未 git commit / push / PyPI 发布**；发布前按各库 AGENTS.md 的流程逐个执行（建 GitHub 仓库 → 递增版本 → build → twine check → upload）。
+- Autarkia-Personas 的实现源头在私有仓，public 切片缺该模块；库内**零角色数据**，角色画像与关系由宿主以 JSON/mapping 注入，public 仓库不会出现真实角色名。
+
+剩余工作：
+
+1. **Autarkia-LLM**：先抽 `core/llm/openai_compat/` 19 个文件，再评估 `cloud_router` / `hybrid_module`；测试全部 mock，不发真实请求。
+2. **Autarkia-Scheduler**：C++/pybind11 扩展，最后做；剥离 llama workers 与 biological_system 后再评估可移植核心。
 
 ## 队列（按发布顺序）
 
