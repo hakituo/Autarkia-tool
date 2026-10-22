@@ -47,7 +47,7 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 1. **抽取**：从来源复制核心文件，宿主依赖只允许两种下场——换成参数注入，或删除。硬规则：`config.*`、`core.utils.*`、`clients.*` 的 import 一个不留。
 2. **通用化**：宿主专有概念（角色名、QQ、数据路径）改成库 API 的参数；宿主硬编码目录表改成声明式 API。风险分级必须显式声明，不做推断。
 3. **测试**：行为测试从 xiaoyou-public `tests/unit/` 对应文件改写，不跑 LLM、不跑网络，目标 ≥50 项。
-4. **仓库**：`pyproject.toml`（hatchling + py.typed + keywords/classifiers）、README（英文为主，链接回运行时仓库、项目页、本路线图）、LICENSE MIT、`.gitignore`。
+4. **仓库**：`pyproject.toml`（hatchling + py.typed + keywords/classifiers）、README（英文为主，链接回运行时仓库、项目页、本路线图）、LICENSE MIT、`.gitignore`、`AGENTS.md`（从 Autarkia-tool 复制模板，只换「这是什么 / 源头对照表 / 结构」三节）。
 5. **发布**：`python -m build --no-isolation` → `twine check` → `twine upload`（token 在 `%USERPROFILE%\.pypirc`）→ GitHub 建仓 `Autarkia-<Component>` 并推送 → 更新本路线图状态。
 6. **收尾**：前后两个库的 README 互相链接（实体互链网）；主运行时 README 的相关章节加"组件库化"注记。
 
