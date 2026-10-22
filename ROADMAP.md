@@ -35,7 +35,9 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 
 ## 当前进度与交接（2026-10-22）
 
-前 8 个库已在本地各自建好独立仓库骨架（`pyproject.toml` / LICENSE / `.gitignore` / README / AGENTS.md / `py.typed` / tests），**尚未 git commit、push 或 PyPI 发布**；版本号均为 `0.1.0`，`build` + `twine check` 均已通过。
+前 8 个库已在本地各自建好独立仓库骨架（`pyproject.toml` / LICENSE / `.gitignore` / README / AGENTS.md / `py.typed` / tests），**均已完成本地 `git init -b main` + 首次提交**；版本号均为 `0.1.0`，`build` + `twine check` 全部通过。
+
+**发布卡点**：8 个库都还没有 GitHub remote（`gh` 未登录，无法建仓），因此未 push、未上 PyPI。解卡只需 `gh auth login`（或手动在 GitHub 建好 8 个同名仓库），之后逐个 `git remote add origin` → `git push -u origin main` → 递增版本 → `twine upload`。
 
 | 库 | 本地目录 | 测试 |
 | --- | --- | --- |
@@ -60,7 +62,8 @@ D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
 - 共用 venv：`D:\AI\autarkia\.venv`（Python 3.10），已安装 `fsrs==6.3.2`（Vocab 需要）。
 - 8 个库均无宿主 import（`config.*` / `core.*` / `clients.*`），测试不跑 LLM、不跑网络。
 - 每个库的 `AGENTS.md` 记录了源头文件对照、通用化改造与命令；续作前先读对应库的 AGENTS.md。
-- 本轮仍**未 git commit / push / PyPI 发布**；发布前按各库 AGENTS.md 的流程逐个执行（建 GitHub 仓库 → 递增版本 → build → twine check → upload）。
+- 8 个库均已本地提交（`main`，工作区干净，`dist/` 未入库），但**无 remote、未 push、未上 PyPI**；发布按各库 AGENTS.md 的流程逐个执行（建 GitHub 仓库 → 递增版本 → build → twine check → upload）。
+- 全部 8 个库共 837 项测试，可在主库 venv 里一次性复跑（见上）。
 - Autarkia-Personas 的实现源头在私有仓，public 切片缺该模块；库内**零角色数据**，角色画像与关系由宿主以 JSON/mapping 注入，public 仓库不会出现真实角色名。
 
 剩余工作：
