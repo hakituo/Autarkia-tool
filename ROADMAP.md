@@ -22,22 +22,26 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 | # | 库 | 状态 |
 | --- | --- | --- |
 | 0 | [Autarkia](https://pypi.org/project/Autarkia/)（工具治理层） | **已发布 0.2.0** |
-| 1 | Autarkia-Cadence | 代码完成，199 项测试全绿，待发布 |
+| 1 | [Autarkia-Cadence](https://pypi.org/project/Autarkia-Cadence/) | **已发布 0.1.0** |
 | 2 | Autarkia-Vocab | 代码完成，161 项测试全绿，待发布 |
-| 3 | Autarkia-Textkit | 代码完成，86 项测试全绿，待发布 |
-| 4 | Autarkia-Io | 代码完成，60 项测试全绿，待发布 |
+| 3 | [Autarkia-Textkit](https://pypi.org/project/Autarkia-Textkit/) | **已发布 0.1.0** |
+| 4 | Autarkia-Io | 代码完成，60 项测试全绿，待发布（PyPI 429 限流，待重试） |
 | 5 | Autarkia-Concurrency | 代码完成，50 项测试全绿，待发布 |
 | 6 | Autarkia-Emotion | 代码完成，94 项测试全绿，待发布 |
-| 7 | Autarkia-Msgqueue | 代码完成，75 项测试全绿，待发布 |
+| 7 | [Autarkia-Msgqueue](https://pypi.org/project/Autarkia-Msgqueue/) | **已发布 0.1.0** |
 | 8 | Autarkia-Personas | 代码完成，112 项测试全绿，待发布 |
 | 9 | Autarkia-LLM | 未开工 |
 | 10 | Autarkia-Scheduler | 未开工 |
 
 ## 当前进度与交接（2026-10-22）
 
-前 8 个库已在本地各自建好独立仓库骨架（`pyproject.toml` / LICENSE / `.gitignore` / README / AGENTS.md / `py.typed` / tests），**均已完成本地 `git init -b main` + 首次提交**；版本号均为 `0.1.0`，`build` + `twine check` 全部通过。
+前 8 个库都已在本地建好独立仓库骨架（`pyproject.toml` / LICENSE / `.gitignore` / README / AGENTS.md / `py.typed` / tests），版本号均为 `0.1.0`，`build` + `twine check` 全部通过。
 
-**发布卡点**：8 个库都还没有 GitHub remote（`gh` 未登录，无法建仓），因此未 push、未上 PyPI。解卡只需 `gh auth login`（或手动在 GitHub 建好 8 个同名仓库），之后逐个 `git remote add origin` → `git push -u origin main` → 递增版本 → `twine upload`。
+**已上线 4 个**：Cadence、Textkit、Msgqueue 已推 GitHub 并发布 PyPI 0.1.0（双语 README + logo 均已生效）。Io 已推 GitHub、`build`/`twine check`/wheel 冒烟都通过，但 PyPI 连发 4 个新项目触发 **HTTP 429 限流**，需隔一段时间重试 `twine upload` 一次。
+
+**其余 4 个**（Vocab / Concurrency / Emotion / Personas）仅本地提交，无 remote、未 push、未上 PyPI；仓库建好后 `git remote add origin` → `git push -u origin main` → `twine upload` 即可。
+
+**发布顺序注意**：PyPI 对短时间内新建项目有限流（本次第 4 个即 429），批量发版请每个之间留间隔，失败不要立刻重试。
 
 | 库 | 本地目录 | 测试 |
 | --- | --- | --- |
@@ -111,3 +115,6 @@ D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
 | Autarkia | 0.1.1 | 仓库链接对齐 |
 | Autarkia | 0.1.2 | PyPI 显示名改 `Autarkia`，仓库链接对齐 `Autarkia-tool` |
 | Autarkia | 0.2.0 | `execute_tool_call` 改为 `registry=` + `context=` 显式入参（`agent=` 保留兼容）；双语 README + logo + CI 矩阵 + 可运行示例；72 项测试 |
+| Autarkia-Cadence | 0.1.0 | 首发：频控闸门/话题组/自适应间隔/晚安探测；199 项测试；双语 README + logo |
+| Autarkia-Textkit | 0.1.0 | 首发：中文消息切分 + 集合相似度；86 项测试；双语 README + logo |
+| Autarkia-Msgqueue | 0.1.0 | 首发：双档 TTL/去重/discard/原子重放/接收端守卫；75 项测试；双语 README + logo |
