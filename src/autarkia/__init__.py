@@ -4,7 +4,7 @@ Registry, risk levels, role-based access, visibility rules, and execution
 guards for LLM tool calling. The tool layer of the Autarkia agent runtime.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from autarkia.tools import (
     BaseTool,
@@ -13,11 +13,13 @@ from autarkia.tools import (
     ToolCatalog,
     ToolDeclaration,
     ToolDiscoveryMetadata,
+    ToolHost,
     ToolRegistry,
     ToolVisibilityContext,
     ToolVisibilityRules,
     execute_tool_call,
     filter_tool_names,
+    search_tool_metadata,
 )
 
 __all__ = [
@@ -27,9 +29,11 @@ __all__ = [
     "ToolCatalog",
     "ToolDeclaration",
     "ToolDiscoveryMetadata",
+    "ToolHost",
     "ToolRegistry",
     "ToolVisibilityContext",
     "ToolVisibilityRules",
     "execute_tool_call",
     "filter_tool_names",
+    "search_tool_metadata",
 ]

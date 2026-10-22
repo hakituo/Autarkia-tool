@@ -30,7 +30,7 @@ Autarkia 运行时组件库系列的**第一个库**：工具治理层——注�
 3. `D:\AI\xiaoyou-public\tests\unit\test_tool_carryover.py` —— 宿主侧行为锁（抽取时测试的母本）
 4. `D:\AI\xiaoyou-public\core\tools\registry.py` 的 `register_all_tools`（~380 行宿主工具装配）——**有意不抽**，库只含治理层不含具体工具，别"补全"它
 
-抽取时做过的通用化改造（不要再改回去）：宿主硬编码的工具目录表 → 声明式 `ToolCatalog`/`ToolDeclaration`；QQ master 判断与 persona 单例 → 运行时上下文注入；`config.tool_profiles` YAML → 注入式 profiles 映射；宿主 logger → stdlib logging。
+抽取时做过的通用化改造（不要再改回去）：宿主硬编码的工具目录表 → 声明式 `ToolCatalog`/`ToolDeclaration`；QQ master 判断与 persona 单例 → 运行时上下文注入；`config.tool_profiles` YAML → 注入式 profiles 映射；宿主 logger → stdlib logging；`execute_tool_call(agent=...)` 对 `.tool_registry` 的隐式依赖 → `registry=` + `context=` 显式参数（`agent=` 仅作兼容路径保留，只用于取 `.tool_registry`，新代码不要再用）。
 
 ## 本仓库结构
 
@@ -38,7 +38,10 @@ Autarkia 运行时组件库系列的**第一个库**：工具治理层——注�
 AGENTS.md                 本文件
 ROADMAP.md                系列路线图（10 个库的队列/规范/SOP）
 src/autarkia/             包本体（import 名 autarkia；tools/ 是治理层子包）
-tests/                    行为测试（60 项，不跑 LLM/网络）
+tests/                    行为测试（72 项，不跑 LLM/网络）
+examples/minimal.py       端到端示例（declare → policy → filter → guard），CI 会跑它
+.github/workflows/ci.yml  Python 3.10–3.13 矩阵：安装 + pytest + 跑示例
+autarkia.svg / -dark.svg  项目 logo（README 头，light/dark 双版本，必须保留）
 dist/                     构建产物（gitignore，不入库）
 pyproject.toml            hatchling；运行时依赖仅 pydantic>=2；Python >=3.10
 ```
@@ -48,7 +51,7 @@ pyproject.toml            hatchling；运行时依赖仅 pydantic>=2；Python >=
 1. **运行时依赖只有 `pydantic>=2`**。新增依赖必须先在 ROADMAP 立项说明理由。
 2. **宿主 import 一个不许进 src/**：`config.*`、`core.utils.*`、`core.services.*`、`clients.*` 在库内只能以参数注入的形式存在。PR/提交前扫一眼。
 3. **风险分级必须显式声明**（`ToolDeclaration`），不做推断；未声明的工具不可见——这是本库的设计哲学，不是遗漏。
-4. 行为变更先改/加测试，保持 ≥60 项全绿再提交。
+4. 行为变更先改/加测试，保持 ≥72 项全绿再提交（含 `test_package.py` 的版本同步断言）。
 5. **每次 `twine upload` 前必须递增 `pyproject.toml` 的 version**（PyPI 禁止重传同版本号）。
 6. PyPI token 不进 git、不写进仓库任何文件；它只存在于 `%USERPROFILE%\.pypirc`。
 

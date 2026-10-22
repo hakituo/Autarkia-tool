@@ -1,7 +1,7 @@
 """Tool governance: registry, declared risk levels, role policies, visibility, execution guard."""
 
 from autarkia.tools.base import BaseTool
-from autarkia.tools.execution import execute_tool_call
+from autarkia.tools.execution import ToolHost, execute_tool_call
 from autarkia.tools.metadata import (
     ToolCatalog,
     ToolDeclaration,
@@ -23,6 +23,7 @@ __all__ = [
     "ToolCatalog",
     "ToolDeclaration",
     "ToolDiscoveryMetadata",
+    "ToolHost",
     "ToolRegistry",
     "ToolVisibilityContext",
     "ToolVisibilityRules",

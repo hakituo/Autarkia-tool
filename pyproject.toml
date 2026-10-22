@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "Autarkia"
-version = "0.1.2"
+version = "0.2.0"
 description = "Tool governance for AI agents: registry, risk levels, role-based access, visibility rules, and execution guards. The tool layer of the Autarkia agent runtime."
 readme = "README.md"
 license = "MIT"

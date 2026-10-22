@@ -103,3 +103,111 @@ def test_agent_without_registry_rejected():
 
     result = json.loads(asyncio.run(execute(BareAgent(), tool_name="echo")))
     assert result["ok"] is False
+
+
+# -- registry-first contract (no host object required) ----------------------
+
+
+def _registry(*tools):
+    registry = ToolRegistry()
+    for tool in tools:
+        registry.register(tool)
+    return registry
+
+
+def test_registry_only_call_needs_no_host_object():
+    EchoTool.context_log.clear()
+    result = asyncio.run(execute_tool_call(
+        registry=_registry(EchoTool()),
+        tool_name="echo",
+        arguments={"text": "hi"},
+        allowed_tool_names=["echo"],
+        user_id="u1",
+    ))
+    assert result == "hi"
+    ctx = EchoTool.context_log[-1]
+    assert ctx["user_id"] == "u1"
+    assert ctx["scope"] == "sfw"
+    # No host object was passed, so nothing pretending to be one is injected.
+    assert "agent" not in ctx
+
+
+def test_missing_registry_is_rejected():
+    result = json.loads(asyncio.run(execute_tool_call(
+        tool_name="echo", arguments={}, allowed_tool_names=["echo"],
+    )))
+    assert result["ok"] is False
+    assert "registry" in result["error"]
+
+
+def test_registry_authorization_still_applies():
+    result = json.loads(asyncio.run(execute_tool_call(
+        registry=_registry(EchoTool()),
+        tool_name="echo",
+        arguments={"text": "x"},
+        allowed_tool_names=[],
+    )))
+    assert result["ok"] is False
+    assert "not allowed" in result["error"]
+
+
+def test_explicit_context_is_merged():
+    EchoTool.context_log.clear()
+    asyncio.run(execute_tool_call(
+        registry=_registry(EchoTool()),
+        tool_name="echo",
+        arguments={"text": "x"},
+        allowed_tool_names=["echo"],
+        context={"is_master": True, "tenant": "t1"},
+    ))
+    ctx = EchoTool.context_log[-1]
+    assert ctx["is_master"] is True
+    assert ctx["tenant"] == "t1"
+    assert ctx["scope"] == "sfw"
+
+
+def test_explicit_context_overrides_derived_values():
+    EchoTool.context_log.clear()
+    asyncio.run(execute_tool_call(
+        registry=_registry(EchoTool()),
+        tool_name="echo",
+        arguments={"text": "x"},
+        allowed_tool_names=["echo"],
+        user_id="derived",
+        context={"user_id": "override", "scope": "trusted"},
+    ))
+    ctx = EchoTool.context_log[-1]
+    assert ctx["user_id"] == "override"
+    assert ctx["scope"] == "trusted"
+
+
+def test_allowed_names_accept_any_iterable():
+    EchoTool.context_log.clear()
+    asyncio.run(execute_tool_call(
+        registry=_registry(EchoTool()),
+        tool_name="echo",
+        arguments={"text": "y"},
+        allowed_tool_names=(name for name in ("echo",)),
+    ))
+    assert EchoTool.context_log[-1]["allowed_tool_names"] == ["echo"]
+
+
+def test_context_does_not_leak_between_calls():
+    EchoTool.context_log.clear()
+    registry = _registry(EchoTool())
+    asyncio.run(execute_tool_call(
+        registry=registry, tool_name="echo", arguments={"text": "a"},
+        allowed_tool_names=["echo"], context={"is_master": True},
+    ))
+    asyncio.run(execute_tool_call(
+        registry=registry, tool_name="echo", arguments={"text": "b"},
+        allowed_tool_names=["echo"],
+    ))
+    assert EchoTool.context_log[0]["is_master"] is True
+    assert "is_master" not in EchoTool.context_log[1]
+
+
+def test_legacy_agent_path_keeps_agent_in_context():
+    EchoTool.context_log.clear()
+    asyncio.run(execute(_agent(EchoTool()), arguments={"text": "x"}))
+    assert isinstance(EchoTool.context_log[-1]["agent"], Agent)

@@ -21,7 +21,7 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 
 | # | 库 | 状态 |
 | --- | --- | --- |
-| 0 | [Autarkia](https://pypi.org/project/Autarkia/)（工具治理层） | **已发布 0.1.2** |
+| 0 | [Autarkia](https://pypi.org/project/Autarkia/)（工具治理层） | **已发布 0.2.0** |
 | 1 | Autarkia-Cadence | 代码完成，199 项测试全绿，待发布 |
 | 2 | Autarkia-Vocab | 代码完成，161 项测试全绿，待发布 |
 | 3 | Autarkia-Textkit | 代码完成，86 项测试全绿，待发布 |
@@ -110,3 +110,4 @@ D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
 | Autarkia | 0.1.0 | 首发：注册表/声明式风险分级/角色策略/可见性/执行边界，60 项测试 |
 | Autarkia | 0.1.1 | 仓库链接对齐 |
 | Autarkia | 0.1.2 | PyPI 显示名改 `Autarkia`，仓库链接对齐 `Autarkia-tool` |
+| Autarkia | 0.2.0 | `execute_tool_call` 改为 `registry=` + `context=` 显式入参（`agent=` 保留兼容）；双语 README + logo + CI 矩阵 + 可运行示例；72 项测试 |
