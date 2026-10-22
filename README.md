@@ -2,6 +2,8 @@
 
 **Tool governance for AI agents** — a registry, risk levels, role-based access, visibility rules, and execution guards for LLM tool calling.
 
+This is the first package of a series extracted from the [Autarkia](https://qishihao.icu/projects/autarkia) agent runtime — see the [component roadmap](ROADMAP.md) for what ships next.
+
 This is the tool layer of [Autarkia](https://qishihao.icu/projects/autarkia), a self-hosted agent runtime that has run on a single machine for months: around 90 tools across 20+ domains, isolated per role, with pre-execution permission checks — not prompt promises.
 
 ## Why
