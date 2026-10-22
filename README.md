@@ -122,7 +122,7 @@ Autarkia itself is not on PyPI — it is a single-machine runtime, not a SaaS. T
 
 - Project page: <https://qishihao.icu/projects/autarkia>
 - Runtime repository: <https://github.com/hakituo/Autarkia>
-- This package: <https://github.com/hakituo/autarkia-tools>
+- This package: <https://github.com/hakituo/autarkia-tool>
 - Author: Shihao Qi — <https://qishihao.icu>
 
 ## License
