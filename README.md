@@ -1,4 +1,4 @@
-# autarkia
+# Autarkia
 
 **Tool governance for AI agents** — a registry, risk levels, role-based access, visibility rules, and execution guards for LLM tool calling.
 
@@ -122,7 +122,7 @@ Autarkia itself is not on PyPI — it is a single-machine runtime, not a SaaS. T
 
 - Project page: <https://qishihao.icu/projects/autarkia>
 - Runtime repository: <https://github.com/hakituo/Autarkia>
-- This package: <https://github.com/hakituo/autarkia-tool>
+- This package: <https://github.com/hakituo/Autarkia-tool>
 - Author: Shihao Qi — <https://qishihao.icu>
 
 ## License

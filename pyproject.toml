@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "autarkia"
-version = "0.1.1"
+name = "Autarkia"
+version = "0.1.2"
 description = "Tool governance for AI agents: registry, risk levels, role-based access, visibility rules, and execution guards. The tool layer of the Autarkia agent runtime."
 readme = "README.md"
 license = "MIT"
@@ -43,7 +43,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://qishihao.icu/projects/autarkia"
-Repository = "https://github.com/hakituo/autarkia-tool"
+Repository = "https://github.com/hakituo/Autarkia-tool"
 "Autarkia Runtime" = "https://github.com/hakituo/Autarkia"
 Author = "https://qishihao.icu"
 
