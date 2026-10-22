@@ -69,7 +69,7 @@ D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
 剩余工作：
 
 1. **Autarkia-LLM**：先抽 `core/llm/openai_compat/` 19 个文件，再评估 `cloud_router` / `hybrid_module`；测试全部 mock，不发真实请求。
-2. **Autarkia-Scheduler**：C++/pybind11 扩展，最后做；剥离 llama workers 与 biological_system 后再评估可移植核心。
+2. **Autarkia-Scheduler**：见 [`docs/scheduler-assessment.md`](docs/scheduler-assessment.md)——**不做 PyPI 包**，只考虑 GitHub-only 仓库（源码 + 架构 + benchmark）；前置条件是干净 Linux 环境一次构建通过，未通过则留在运行时内。
 
 ## 队列（按发布顺序）
 
@@ -84,7 +84,7 @@ D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
 | 7 | **Autarkia-Msgqueue** | 离线消息可靠性队列：双档 TTL/message_id 去重/discard/原子重放/双端时效守卫 | `core/interfaces/websocket/offline_queue.py`(206)、`clients/bots/qq/session/replay_guard.py`(33) | LOW-MEDIUM |
 | 8 | **Autarkia-Personas** | 多角色人设注册表 + 互识关系图 + 拒绝猜测的 role 解析（机制入库，角色数据外置） | `core/services/dual_role/personas.py` ≈710 行（**在私有仓 xiaoyou-core**，public 切片缺实现） | LOW |
 | 9 | **Autarkia-LLM** | 多 provider OpenAI 兼容网关：路由/降级链/瞬时错误重试/流式/视觉回退路由 | `core/llm/openai_compat/` 19 文件先行，再上 `cloud_router`/`hybrid_module` | MEDIUM-HIGH |
-| 10 | **Autarkia-Scheduler** | 端侧 AI 任务 GPU/CPU 资源隔离优先级队列（pybind11 C++ 扩展） | `cpp_modules/cpp_scheduler/`（剥离 llama workers 与 biological_system 后核心 ≈60KB） | HIGH |
+| 10 | **Autarkia-Scheduler** | 端侧 AI 任务 GPU/CPU 资源隔离优先级队列（pybind11 C++ 扩展）**→ 不发 PyPI，评估见 `docs/scheduler-assessment.md`** | `cpp_modules/cpp_scheduler/`（剥离 llama workers 与 biological_system 后核心 ≈60KB） | HIGH |
 
 不做库：`memory/` 整体（config 硬耦合贯穿 8000 行实现层，收益不成比例）、`memory/nightly/`（应用级流程）、`core/modules/`（硬件绑定）、`core/lifecycle/`（FastAPI 编排）。
 
