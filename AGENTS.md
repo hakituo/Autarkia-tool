@@ -64,6 +64,7 @@ venv 已建好：`.venv\`（Python 3.10）。
 | 测试 | `.venv\Scripts\python -m pytest -q` |
 | 构建 | `.venv\Scripts\python -m build --no-isolation` |
 | 装依赖/装包 | `.venv\Scripts\python -m pip install <pkg> -i https://pypi.org/simple --proxy http://127.0.0.1:7897` |
+| 装开发依赖（pytest/build/twine） | `.venv\Scripts\python -m pip install -e ".[dev]" -i https://pypi.org/simple --proxy http://127.0.0.1:7897` |
 | 发布检查 | `.venv\Scripts\python -m twine check dist\*` |
 | 发布 | `.venv\Scripts\python -m twine upload dist\* --non-interactive` |
 

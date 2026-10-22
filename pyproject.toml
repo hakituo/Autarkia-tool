@@ -41,6 +41,13 @@ dependencies = [
     "pydantic>=2.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "build>=1.2",
+    "twine>=5.0",
+]
+
 [project.urls]
 Homepage = "https://qishihao.icu/projects/autarkia"
 Repository = "https://github.com/hakituo/Autarkia-tool"
