@@ -45,20 +45,24 @@ import 名不使用 `autarkia.cadence` 命名空间形式：第一个包已占�
 
 | 库 | 本地目录 | 测试 |
 | --- | --- | --- |
-| Autarkia-Cadence | `D:\AI\Autarkia-Cadence` | 199 |
-| Autarkia-Vocab | `D:\AI\Autarkia-Vocab` | 161 |
-| Autarkia-Textkit | `D:\AI\Autarkia-Textkit` | 86 |
-| Autarkia-Io | `D:\AI\Autarkia-Io` | 60 |
-| Autarkia-Concurrency | `D:\AI\Autarkia-Concurrency` | 50 |
-| Autarkia-Emotion | `D:\AI\Autarkia-Emotion` | 94 |
-| Autarkia-Msgqueue | `D:\AI\Autarkia-Msgqueue` | 75 |
-| Autarkia-Personas | `D:\AI\Autarkia-Personas` | 112 |
+| Autarkia-Cadence | `D:\AI\Autarkia-Libs\Autarkia-Cadence` | 199 |
+| Autarkia-Vocab | `D:\AI\Autarkia-Libs\unpublished\Autarkia-Vocab` | 161 |
+| Autarkia-Textkit | `D:\AI\Autarkia-Libs\Autarkia-Textkit` | 86 |
+| Autarkia-Io | `D:\AI\Autarkia-Libs\Autarkia-Io` | 60 |
+| Autarkia-Concurrency | `D:\AI\Autarkia-Libs\unpublished\Autarkia-Concurrency` | 50 |
+| Autarkia-Emotion | `D:\AI\Autarkia-Libs\unpublished\Autarkia-Emotion` | 94 |
+| Autarkia-Msgqueue | `D:\AI\Autarkia-Libs\Autarkia-Msgqueue` | 75 |
+| Autarkia-Personas | `D:\AI\Autarkia-Libs\unpublished\Autarkia-Personas` | 112 |
+
+目录约定（2026-10-24）：已上 GitHub / PyPI 的 5 个库放在 `Autarkia-Libs\` 根下；
+未发布的 4 个（Vocab / Concurrency / Emotion / Personas）统一放进 `Autarkia-Libs\unpublished\`，
+只做 Linux ↔ Windows 磁盘同步，不推送远端。
 
 验证方式（以 Cadence 为例，其余替换目录名即可）：
 
 ```powershell
-$env:PYTHONPATH="D:\AI\Autarkia-Cadence\src"
-D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Cadence\tests
+$env:PYTHONPATH="D:\AI\Autarkia-Libs\Autarkia-Cadence\src"
+D:\AI\autarkia\.venv\Scripts\python -m pytest -q D:\AI\Autarkia-Libs\Autarkia-Cadence\tests
 ```
 
 环境与约定：
