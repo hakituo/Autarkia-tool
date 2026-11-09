@@ -1,3 +1,5 @@
+import pytest
+
 from autarkia.tools import ToolCatalog, ToolDeclaration, ToolRegistry
 from tests.conftest import EchoTool, Nested, NestedArgs
 
@@ -19,7 +21,7 @@ def test_register_and_defaults():
     registry = _registry(EchoTool())
     assert registry.get_tool("echo") is not None
     assert registry.is_enabled("echo") is True
-    assert registry.get_active_tools() == ["echo"]
+    assert registry.get_enabled_tools() == ["echo"]
     assert registry.get_tool("ghost") is None
 
 
@@ -27,9 +29,15 @@ def test_enable_disable_roundtrip():
     registry = _registry(EchoTool())
     assert registry.disable_tool("echo") is True
     assert registry.is_enabled("echo") is False
-    assert registry.get_active_tools() == []
+    assert registry.get_enabled_tools() == []
     assert registry.enable_tool("echo") is True
     assert registry.is_enabled("echo") is True
+
+
+def test_get_active_tools_is_deprecated_alias():
+    registry = _registry(EchoTool())
+    with pytest.warns(DeprecationWarning):
+        assert registry.get_active_tools() == ["echo"]
 
 
 def test_disable_unknown_tool_returns_false():
@@ -44,7 +52,7 @@ def test_enabled_by_default_false_is_never_active():
     tool.enabled_by_default = False
     registry.register(tool)
     assert registry.is_enabled("echo") is False
-    assert registry.get_active_tools() == []
+    assert registry.get_enabled_tools() == []
 
 
 def test_openai_schema_shape_and_cache():

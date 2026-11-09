@@ -78,9 +78,30 @@ class ToolRegistry:
             return False
         return name not in self._disabled and self._tools[name].enabled_by_default
 
-    def get_active_tools(self) -> List[str]:
-        """Return currently enabled tool names."""
+    def get_enabled_tools(self) -> List[str]:
+        """Return every registered tool that is not disabled.
+
+        This is not "the tools selected for the current turn": that set is
+        built by the caller's active-tool policy. The old name
+        ``get_active_tools`` made the two look equivalent; it remains as a
+        deprecated alias.
+        """
         return [name for name in self._tools if self.is_enabled(name)]
+
+    def get_active_tools(self) -> List[str]:
+        """Deprecated: use ``get_enabled_tools()``.
+
+        Kept as a transition alias so existing callers surface through the
+        warning; remove the alias once downstream code has migrated.
+        """
+        import warnings
+
+        warnings.warn(
+            "ToolRegistry.get_active_tools() was renamed to get_enabled_tools()",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.get_enabled_tools()
 
     def get_tools_by_category(self, category: str) -> List[BaseTool]:
         """Return enabled tools belonging to a category."""

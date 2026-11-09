@@ -91,7 +91,7 @@ async def main() -> None:
     policy = resolver.resolve(scope="visitor")
 
     visible = filter_tool_names(
-        registry.get_active_tools(), policy=policy, tool_registry=registry
+        registry.get_enabled_tools(), policy=policy, tool_registry=registry
     )
 
     print("catalog declared:", catalog.names())
