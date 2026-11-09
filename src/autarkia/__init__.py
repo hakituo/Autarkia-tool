@@ -4,7 +4,7 @@ Registry, risk levels, role-based access, visibility rules, and execution
 guards for LLM tool calling. The tool layer of the Autarkia agent runtime.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 from autarkia.tools import (
     BaseTool,
