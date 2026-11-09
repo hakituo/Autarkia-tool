@@ -89,7 +89,7 @@ resolver = RolePolicyResolver(profiles, catalog=catalog)
 policy = resolver.resolve(scope="librarian")
 
 visible = filter_tool_names(
-    registry.get_active_tools(), policy=policy, tool_registry=registry,
+    registry.get_enabled_tools(), policy=policy, tool_registry=registry,
 )
 picked = resolver.select("please repeat this", scope="librarian")
 ```
@@ -131,10 +131,10 @@ result = asyncio.run(execute_tool_call(
 
 Autarkia 本身不在 PyPI 上——它是一个单机运行时，不是 SaaS。这个包把那次实验里活下来的治理层单独发出来。
 
-- 项目页：<https://qishihao.icu/projects/autarkia>
+- 项目页：<https://qishihao.dev/projects/autarkia>
 - 运行时仓库：<https://github.com/hakituo/Autarkia>
 - 组件库路线图：<https://github.com/hakituo/Autarkia-tool/blob/main/ROADMAP.md>
-- 作者：Shihao Qi — <https://qishihao.icu>
+- 作者：Shihao Qi — <https://qishihao.dev>
 
 ### 许可
 
@@ -207,7 +207,7 @@ resolver = RolePolicyResolver(profiles, catalog=catalog)
 policy = resolver.resolve(scope="librarian")
 
 visible = filter_tool_names(
-    registry.get_active_tools(), policy=policy, tool_registry=registry,
+    registry.get_enabled_tools(), policy=policy, tool_registry=registry,
 )
 picked = resolver.select("please repeat this", scope="librarian")
 ```
@@ -249,10 +249,10 @@ load: base (always offered) / on_demand (found via search) / hidden (exists, nev
 
 Autarkia itself is not on PyPI — it is a single-machine runtime, not a SaaS. This package ships the governance layer that survived that experiment, because it turned out to be the part other projects kept asking for.
 
-- Project page: <https://qishihao.icu/projects/autarkia>
+- Project page: <https://qishihao.dev/projects/autarkia>
 - Runtime repository: <https://github.com/hakituo/Autarkia>
 - Component roadmap: <https://github.com/hakituo/Autarkia-tool/blob/main/ROADMAP.md>
-- Author: Shihao Qi — <https://qishihao.icu>
+- Author: Shihao Qi — <https://qishihao.dev>
 
 ### License
 

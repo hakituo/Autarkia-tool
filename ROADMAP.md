@@ -3,7 +3,7 @@
 把 Autarkia 运行时里经受过单机长期运行考验的内部机制，抽成一系列独立、可安装的 Python 库。每个库 = 一个 GitHub 仓库 + 一个 PyPI 页面。
 
 - 运行时（大集合，给人看）：https://github.com/hakituo/Autarkia
-- 作者站点：https://qishihao.icu/projects/autarkia
+- 作者站点：https://qishihao.dev/projects/autarkia
 - 本路线图所在仓库（系列第一个库）：https://github.com/hakituo/Autarkia-tool
 
 ## 命名规范
